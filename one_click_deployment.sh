@@ -3,7 +3,6 @@ echo "How many node do you wanna create:"
 read NUM
 
 ##service
-pushd svc >/dev/null
 for svc in `seq $NUM`
 do 
 	echo "
@@ -32,11 +31,10 @@ spec:
   type: LoadBalancer
   " > service${svc}.yaml
   kubectl apply -f service${svc}.yaml
+  rm service${svc}.yaml
 done
-popd >/dev/null
 
 ##deploy
-pushd deploy >/dev/null
 for deploy in `seq $NUM`
 do 
   echo "
@@ -83,8 +81,8 @@ spec:
           repository: 'https://github.com/markpengisme/Cluster_File.git'
   " > deploy${deploy}.yaml
   kubectl apply -f deploy${deploy}.yaml
+  rm deploy${deploy}.yaml
 done
-popd >/dev/null
 
 ##check ip is ok
 for svc in `seq $NUM`
