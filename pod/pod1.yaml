@@ -33,7 +33,7 @@ spec:
         - name: geth
           containerPort: 9000
         volumeMounts:
-        - mountPath: /quorum
+        - mountPath: /home/7nodes
           name: git-volume
 
       volumes:
