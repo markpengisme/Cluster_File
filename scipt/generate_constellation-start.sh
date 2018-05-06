@@ -1,4 +1,3 @@
-set -x
 NUM=$1
 IPTEMP_1=$(kubectl get svc nodesvc1 | awk 'NR>1 {print $4}')
 for (( v = 1 ; v < $NUM+1 ; v++ ))
