@@ -9,7 +9,7 @@ sh script/create_service $NUM
 sh script/create_deploy $NUM
 
 ##check ip is ok
-sh check_ip $NUM
+sh script/check_ip $NUM
 
 ##generate constellation-start
 sh script/generate_constellation-start $NUM
