@@ -9,7 +9,7 @@ echo "[*] Starting Constellation nodes"
 echo "[*] Starting Ethereum nodes"
 set -v
 ARGS="--raft --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum --emitcheckpoints"
-PRIVATE_CONFIG=qdata/c2/tm.ipc nohup geth --datadir qdata/dd2 $ARGS --permissioned --raftport 50402 --rpcport 22001 --port 21001 2>>qdata/logs/2.log &
+PRIVATE_CONFIG=qdata/c2/tm.ipc nohup geth --datadir qdata/dd2 $ARGS --permissioned --raftport 50400 --rpcport 22000 --port 21000 2>>qdata/logs/2.log &
 set +v
 
 echo
