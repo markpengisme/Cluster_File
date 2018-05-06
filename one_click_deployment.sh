@@ -75,7 +75,7 @@ spec:
         - name: geth
           containerPort: 9000
         volumeMounts:
-        - mountPath: /home/7nodes
+        - mountPath: /home
           name: git-volume
       volumes:
       - name: git-volume
