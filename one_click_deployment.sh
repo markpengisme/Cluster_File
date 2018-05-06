@@ -62,7 +62,7 @@ spec:
     spec:
       containers:
       - name: 7node
-        image: markpengisme/k8s:quorum
+        image: markpengisme/7node:node${deploy}
         command: ['/bin/sh']
         args: ['-c', 'while true; do echo hello; sleep 10;done']
         ports:
