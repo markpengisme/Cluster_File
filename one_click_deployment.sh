@@ -3,6 +3,7 @@ echo "How many node do you wanna create:"
 read NUM
 
 ##service
+pushd svc >/dev/null
 for svc in `seq $NUM`
 do 
 	echo "
@@ -32,9 +33,10 @@ spec:
   " > service${svc}.yaml
   kubectl apply -f service${svc}.yaml
 done
-
+popd >/dev/null
 
 ##deploy
+pushd deploy >/dev/null
 for deploy in `seq $NUM`
 do 
   echo "
@@ -82,13 +84,14 @@ spec:
   " > deploy${deploy}.yaml
   kubectl apply -f deploy${deploy}.yaml
 done
+popd >/dev/null
 
+##check ip is ok
 for svc in `seq $NUM`
 do
 	IP_DONE=false
 	while [ $IP_DONE = false ]
 	do
-		echo $IP_DONE
 		sleep 1
 		IP_DONE=true
 		TEMP=$(kubectl get svc nodesvc${svc} | awk 'NR>1 {print $4}')
