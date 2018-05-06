@@ -72,13 +72,6 @@ spec:
           containerPort: 21000
         - name: geth
           containerPort: 9000
-        volumeMounts:
-        - mountPath: /home
-          name: git-volume
-      volumes:
-      - name: git-volume
-        gitRepo:
-          repository: 'https://github.com/markpengisme/Cluster_File.git'
   " > deploy${deploy}.yaml
   kubectl apply -f deploy${deploy}.yaml
   rm deploy${deploy}.yaml
