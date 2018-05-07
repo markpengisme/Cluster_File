@@ -26,6 +26,6 @@ spec:
     targetPort: 9000
   type: LoadBalancer
   " > service${svc}.yaml
-  kubectl apply -f service${svc}.yaml
+  kubectl apply -f service${svc}.yaml &
   rm service${svc}.yaml
 done
