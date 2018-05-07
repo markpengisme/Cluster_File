@@ -38,7 +38,15 @@ done
 
 for v in `seq 1 $NUM`
 do
-    GENERATE_PERMISSION_START="{\"$ENODE_1\",\"$ENODE_2\",\"$ENODE_3\",\"$ENODE_4\",\"$ENODE_5\",\"$ENODE_6\",\"$ENODE_7\"}"
+    GENERATE_PERMISSION_START="{
+      \"$ENODE_1\",
+      \"$ENODE_2\",
+      \"$ENODE_3\",
+      \"$ENODE_4\",
+      \"$ENODE_5\",
+      \"$ENODE_6\",
+      \"$ENODE_7\"
+    }"
     CREATE="cd home/node$v && echo '$GENERATE_PERMISSION_START' > permissioned-nodes.json"
     kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c "$CREATE"
     echo "No.$v permissioned-nodes ok"
