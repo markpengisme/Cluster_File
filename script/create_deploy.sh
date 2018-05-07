@@ -25,6 +25,7 @@ spec:
       containers:
       - name: 7node
         image: markpengisme/7node:node${deploy}
+        imagePullPolicy: Always
         command: ['/bin/sh']
         args: ['-c', 'while true; do echo hello; sleep 10;done']
         ports:
