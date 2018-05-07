@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Quorum in k8s Start:"
 echo "How many node do you wanna create:"
 read NUM
 
@@ -15,6 +16,7 @@ sh script/check_ip.sh $NUM
 sh script/generate_constellation-start.sh $NUM
 
 ##generate permissioned-nodes.json
+sh script/generate_permissioned-nodes.sh
 
 ##blockchain development
 sh script/raft.sh $NUM
