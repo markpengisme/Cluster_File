@@ -37,6 +37,6 @@ spec:
         - name: geth
           containerPort: 9000
   " > deploy${deploy}.yaml
-  kubectl apply -f deploy${deploy}.yaml &
+  kubectl apply -f deploy${deploy}.yaml
   rm deploy${deploy}.yaml
 done
