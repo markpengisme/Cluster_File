@@ -1,6 +1,6 @@
 NUM=$1
 IPTEMP_1=$(kubectl get svc nodesvc1 | awk 'NR>1 {print $4}')
-for (( v = 1 ; v < $NUM+1 ; v++ ))
+for v in `seq 1 $NUM`
 do
     IPTEMP=$(kubectl get svc nodesvc$v | awk 'NR>1 {print $4}')
     GENERATE_CONSTELLATION_START='#!/bin/bash
