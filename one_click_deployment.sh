@@ -27,7 +27,7 @@ sh script/check_ip.sh $NUM
 sh script/generate_constellation-start.sh $NUM
 
 ##generate permissioned-nodes.json
-sh script/generate_permissioned-nodes.sh
+sh script/generate_permissioned-nodes.sh $NUM
 
 ##blockchain development
 sh script/raft.sh $NUM
