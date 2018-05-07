@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sh raft-init.sh
-sh raft-start.sh
+./raft-init.sh
+./raft-start.sh
