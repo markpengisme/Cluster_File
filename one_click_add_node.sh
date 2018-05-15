@@ -13,7 +13,7 @@ do
 done
 EXIST_NUM=$(kubectl get svc | wc -l)-2
 ##service
-for svc in `seq $EXIST_NUM+1 $EXIST_NUM+$NUM`
+for svc in `seq $(($EXIST_NUM+1)) $(($EXIST_NUM+$NUM))`
 do 
 	echo "
 kind: Service
@@ -49,7 +49,7 @@ done
 
 ##deploy
 NUM=$1
-for deploy in `seq $EXIST_NUM+1 $EXIST_NUM+$NUM`
+for deploy in `seq $(($EXIST_NUM+1)) $(($EXIST_NUM+$NUM))`
 do 
   echo "
 apiVersion: apps/v1
@@ -95,7 +95,7 @@ spec:
 done
 
 ##check ip is ok
-for svc in `seq $EXIST_NUM+1 $EXIST_NUM+$NUM`
+for svc in `seq $(($EXIST_NUM+1)) $(($EXIST_NUM+$NUM))`
 do
 	IP_DONE=false
 	while [ $IP_DONE = false ]
