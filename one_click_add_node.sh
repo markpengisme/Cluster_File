@@ -11,7 +11,7 @@ do
 		break
 	fi
 done
-EXIST_NUM = (kubectl get svc | wc -l)-2
+EXIST_NUM=(kubectl get svc | wc -l)-2
 ##service
 for svc in `seq $EXIST_NUM+1 $EXIST_NUM+$NUM`
 do 
