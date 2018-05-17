@@ -10,12 +10,15 @@ do
 		break
 	fi
 done
+
 EXIST_NUM=$(($(kubectl get deploy | wc -l)-1))
 if [ $EXIST_NUM -lt 0 ]
 then
     EXIST_NUM=0
 fi
+
 TOTAL_NUM=$(($EXIST_NUM+$NUM))
+
 ##service
 for svc in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
 do 
@@ -114,11 +117,11 @@ for v in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
 	kubectl exec $POD_NAME -- bash -c "mkdir -p /home/node"
-	kubectl cp node_empty/genesis.json $POD_NAME:/home/node
-	kubectl cp node_empty/passwords.txt $POD_NAME:/home/node
-	kubectl cp node_empty/raft-init.sh $POD_NAME:/home/node
-	kubectl cp node_empty/raft-start.sh $POD_NAME:/home/node
-	kubectl cp node_empty/stop.sh $POD_NAME:/home/node
+	kubectl cp node_default/genesis.json $POD_NAME:/home/node
+	kubectl cp node_default/passwords.txt $POD_NAME:/home/node
+	kubectl cp node_default/raft-init.sh $POD_NAME:/home/node
+	kubectl cp node_default/raft-start.sh $POD_NAME:/home/node
+	kubectl cp node_default/stop.sh $POD_NAME:/home/node
     echo "copy node folder ok"
 done
 
@@ -137,10 +140,10 @@ done
 # add '[' in first line
 # add ']' in last line
 ##
-sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' 123.txt > node_empty/permissioned-nodes.json
+sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' 123.txt > node_default/permissioned-nodes.json
 rm 123.txt
 
-## copy node_empty folder
+## copy node_default folder
 for v in `seq $TOTAL_NUM`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
