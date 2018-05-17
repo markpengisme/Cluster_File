@@ -1,7 +1,8 @@
 rm node_default/permissioned-nodes.json 2> /dev/null
 NUM_START=$1
 NUM_END=$2
-for v in `seq $NUM_START $NUM_END`
+echo "Generate permissioned-nodes.json in local"
+for v in `seq 1 $NUM_END`
 do
   eval IPTEMP_$v=$(kubectl get svc nodesvc$v | awk 'NR>1 {print $4}')
   eval ENODE_$v=$(kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c "cat /home/node/enode.key")
@@ -19,9 +20,11 @@ sed -i -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' node_default/permissioned
 
 
 ## copy permissioned-node.json
-for v in `seq $NUM_START $NUM_END`
+for v in `seq 1 $NUM_END`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
 	kubectl cp node_default/permissioned-nodes.json $POD_NAME:/home/node/permissioned-nodes.json
+	kubectl cp node_default/permissioned-nodes.json $POD_NAME:/home/node/qdata/dd/static-nodes.json
+	kubectl cp node_default/permissioned-nodes.json $POD_NAME:/home/node/qdata/dd/
 	echo "copy permissioned-nodes to node$v ok"
 done

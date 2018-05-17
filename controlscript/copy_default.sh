@@ -4,7 +4,7 @@ NUM_END=$2
 for v in `seq $NUM_START $NUM_END`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
-	kubectl exec $POD_NAME -- bash -c "mkdir -p /home/node"
+	kubectl exec $POD_NAME -- bash -c "mkdir -p /home/node/qdata/dd/{keystore,geth}"
 	kubectl cp node_default/genesis.json $POD_NAME:/home/node/genesis.json
 	kubectl cp node_default/passwords.txt $POD_NAME:/home/node/passwords.txt
 	kubectl cp node_default/raft-init.sh $POD_NAME:/home/node/raft-init.sh
