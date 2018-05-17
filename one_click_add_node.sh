@@ -51,17 +51,18 @@ elif [ $FEATURE -eq 3 ] ; then
 		echo "What number node do you wanna delete:"
 		echo -e "eg:\n input:1 3 5 7\n delete node1,3,5,7"
 		read NUM
-		for var in "$@"
+		for var in ${NUM[@]}
 		do
-		    #kubectl delete nodesvc$var 
-			kubectl delete deploy node$5
+		    kubectl delete nodesvc$var 
+			kubectl delete deploy node$var
+			echo "delete node$var"
 		done
 		break
 	done
-	return
+	exit 0
 else
 	echo "some error"
-	return
+	exit 0 
 fi
 
 ##service
