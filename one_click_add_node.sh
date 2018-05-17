@@ -112,7 +112,7 @@ do
 	done
 done
 
-## copy passwords\raft-init\raft-start\stop
+## copy passwords	raft-init	raft-start	stop
 for v in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
@@ -122,36 +122,10 @@ do
 	kubectl cp node_default/raft-init.sh $POD_NAME:/home/node
 	kubectl cp node_default/raft-start.sh $POD_NAME:/home/node
 	kubectl cp node_default/stop.sh $POD_NAME:/home/node
-    echo "copy node folder ok"
 done
+echo "Copy node folder to all ok"
 
-##generate permissioned-nodes.json
-for v in `seq 1 $TOTAL_NUM`
-do
-  eval IPTEMP_$v=$(kubectl get svc nodesvc$v | awk 'NR>1 {print $4}')
-  eval ENODE_$v=$(kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c "cat /home/node/enode.key")
-  eval COMBINE="enode://"$(echo \$ENODE_$v)"@"$(echo \$IPTEMP_$v)":21000?discport=0\"&\"raftport=50400"
-  echo $COMBINE >> 123.txt
-done
-## sed
-#
-# add \" in head and \", in tail, 
-# delete last line last character,
-# add '[' in first line
-# add ']' in last line
-##
-sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' 123.txt > node_default/permissioned-nodes.json
-rm 123.txt
-
-## copy node_default folder
-for v in `seq $TOTAL_NUM`
-do
-	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
-done
-echo "copy permissioned-nodes ok"
-
-
-## allkey/constellation-start.sh
+## allkey constellation-start.sh
 for v in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
 do
 	GENERATE_DIR="mkdir -p /home/node && cd /home/node"
@@ -188,6 +162,33 @@ do
 		 $GENERATE_KEY && \
 		 $CREATE_CONSTELLATION_START "
 done
+echo "Generate allkey and constellation-start.sh in all node ok"
+
+##generate permissioned-nodes.json
+for v in `seq 1 $TOTAL_NUM`
+do
+  eval IPTEMP_$v=$(kubectl get svc nodesvc$v | awk 'NR>1 {print $4}')
+  eval ENODE_$v=$(kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c "cat /home/node/enode.key")
+  eval COMBINE="enode://"$(echo \$ENODE_$v)"@"$(echo \$IPTEMP_$v)":21000?discport=0\"&\"raftport=50400"
+  echo $COMBINE >> 123.txt
+done
+## sed
+#
+# add \" in head and \", in tail, 
+# delete last line last character,
+# add '[' in first line
+# add ']' in last line
+##
+sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' 123.txt > node_default/permissioned-nodes.json
+rm 123.txt
+## copy node_default folder
+for v in `seq $TOTAL_NUM`
+do
+	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
+done
+echo "copy permissioned-nodes to all node ok"
+
+
 
 
 
