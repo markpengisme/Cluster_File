@@ -11,6 +11,10 @@ do
 	fi
 done
 EXIST_NUM=$(($(kubectl get deploy | wc -l)-1))
+if [ $EXIST_NUM -lt 0 ]
+then
+    EXIST_NUM=0
+fi
 TOTAL_NUM=$(($EXIST_NUM+$NUM))
 ##service
 for svc in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
