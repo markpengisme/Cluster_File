@@ -185,6 +185,7 @@ rm 123.txt
 for v in `seq $TOTAL_NUM`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
+	kubectl cp node_default/permissioned-nodes.json $POD_NAME:/home/node/permissioned-nodes.json
 done
 echo "copy permissioned-nodes to all node ok"
 
@@ -201,7 +202,7 @@ do
 	  	 ./stop.sh && \
 	  	 ./raft-init.sh && \
 	  	 ./raft-start.sh"
-    echo "No.$v develop key ok"
+    echo "No.$v node key ok"
 done
 
 
