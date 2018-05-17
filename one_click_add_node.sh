@@ -122,8 +122,9 @@ do
 	kubectl cp node_default/raft-init.sh $POD_NAME:/home/node/raft-init.sh
 	kubectl cp node_default/raft-start.sh $POD_NAME:/home/node/raft-start.sh
 	kubectl cp node_default/stop.sh $POD_NAME:/home/node/stop.sh
+	echo "Copy folder to node$v ok"
 done
-echo "Copy node folder to all ok"
+
 
 ## allkey constellation-start.sh
 for v in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
@@ -161,16 +162,17 @@ do
 		"$GENERATE_DIR && \
 		 $GENERATE_KEY && \
 		 $CREATE_CONSTELLATION_START "
+	echo "Generate allkey and constellation-start.sh in node$v ok"
 done
-echo "Generate allkey and constellation-start.sh in all node ok"
 
 ##generate permissioned-nodes.json
+rm node_default/permissioned-nodes.json 2> /dev/null
 for v in `seq 1 $TOTAL_NUM`
 do
   eval IPTEMP_$v=$(kubectl get svc nodesvc$v | awk 'NR>1 {print $4}')
   eval ENODE_$v=$(kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c "cat /home/node/enode.key")
   eval COMBINE="enode://"$(echo \$ENODE_$v)"@"$(echo \$IPTEMP_$v)":21000?discport=0\"&\"raftport=50400"
-  echo $COMBINE >> 123.txt
+  echo $COMBINE >> node_default/permissioned-nodes.json
 done
 ## sed
 #
@@ -179,19 +181,15 @@ done
 # add '[' in first line
 # add ']' in last line
 ##
-sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' 123.txt > node_default/permissioned-nodes.json
-rm 123.txt
+sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' node_default/permissioned-nodes.json
+
 ## copy node_default folder
 for v in `seq $TOTAL_NUM`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
 	kubectl cp node_default/permissioned-nodes.json $POD_NAME:/home/node/permissioned-nodes.json
+	echo "copy permissioned-nodes to node$v ok"
 done
-echo "copy permissioned-nodes to all node ok"
-
-
-
-
 
 
 ##blockchain development
