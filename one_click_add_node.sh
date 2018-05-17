@@ -31,7 +31,6 @@ if [ $FEATURE -eq 1 ] ; then
 		fi
 	done
 elif [ $FEATURE -eq 2 ] ; then
-
 	EXIST_NUM=$(($(kubectl get deploy | wc -l)-1))
 	while true
 	do
@@ -66,5 +65,3 @@ sh controlscript/generate_permissioned.sh $NUM_START $NUM_END
 
 ##blockchain deploy
 sh controlscript/deploy.sh $NUM_START $NUM_END
-
-
