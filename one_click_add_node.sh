@@ -32,7 +32,8 @@ if [ $FEATURE -eq 1 ] ; then
 	done
 elif [ $FEATURE -eq 2 ] ; then
 	#get last node number 
-	EXIST_NUM=$(kubectl get deploy | awk 'BEGIN {max = 0} {if (substr($1,5,4)+0 > max+0) max=substr($1,5,4)} END {print max}'
+	EXIST_NUM=$(kubectl get deploy | awk \
+	'BEGIN {max = 0} {if (substr($1,5,4)+0 > max+0) max=substr($1,5,4)} END {print max}')
 	while true
 	do
 		echo "How many node do you wanna add:"
@@ -80,7 +81,8 @@ sh controlscript/check_ip.sh $NUM_START $NUM_END
 sh controlscript/copy_default.sh $NUM_START $NUM_END
 
 ##generate permissioned-nodes.json
-sh controlscript/generate_permissioned.sh $NUM_START $NUM_END
+NUM=$(kubectl get deploy | awk '{print substr($1,5,4)}')
+sh controlscript/generate_permissioned.sh $NUM
 
 ##blockchain deploy
 sh controlscript/deploy.sh $NUM_START $NUM_END
