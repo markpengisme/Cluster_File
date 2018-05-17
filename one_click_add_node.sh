@@ -45,11 +45,10 @@ elif [ $FEATURE -eq 2 ] ; then
 			break
 		fi
 	done
-else ; then
+else
 	echo "some error"
 	return
-
-
+fi
 
 ##service
 sh controlscript/create_service.sh $NUM_START $NUM_END
