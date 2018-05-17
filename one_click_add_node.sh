@@ -45,6 +45,22 @@ elif [ $FEATURE -eq 2 ] ; then
 			break
 		fi
 	done
+elif [ $FEATURE -eq 3 ] ; then
+	while true
+	do
+		echo "What number node do you wanna delete:"
+		read NUM
+		if ! [[ $NUM =~ $re ]] ; then
+			echo "error: Not a number"
+		else 
+			for var in "$@"
+			do
+			    #kubectl delete nodesvc$var 
+				kubectl delete deploy node$5
+			done
+			break
+		fi
+	done
 else
 	echo "some error"
 	return
