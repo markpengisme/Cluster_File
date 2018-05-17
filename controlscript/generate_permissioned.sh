@@ -19,7 +19,7 @@ sed -i -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' node_default/permissioned
 
 
 ## copy permissioned-node.json
-for svc in `seq $NUM_START $NUM_END`
+for v in `seq $NUM_START $NUM_END`
 do
 	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
 	kubectl cp node_default/permissioned-nodes.json $POD_NAME:/home/node/permissioned-nodes.json
