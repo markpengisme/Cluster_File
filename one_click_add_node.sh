@@ -45,6 +45,9 @@ elif [ $FEATURE -eq 2 ] ; then
 			break
 		fi
 	done
+else ; then
+	echo "some error"
+	return
 
 
 
