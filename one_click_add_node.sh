@@ -32,8 +32,7 @@ if [ $FEATURE -eq 1 ] ; then
 	done
 elif [ $FEATURE -eq 2 ] ; then
 	#get last node number 
-	EXIST_NUM=$(kubectl get deploy | awk \
-	'BEGIN {max = 0} {if (substr($1,5,4)+0 > max+0) max=substr($1,5,4)} END {print max}'
+	EXIST_NUM=$(kubectl get deploy | awk 'BEGIN {max = 0} {if (substr($1,5,4)+0 > max+0) max=substr($1,5,4)} END {print max}'
 	while true
 	do
 		echo "How many node do you wanna add:"
