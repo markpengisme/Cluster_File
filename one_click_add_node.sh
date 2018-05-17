@@ -198,7 +198,7 @@ do
   kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c \
   "cd home/node && ./stop.sh"
 	kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c \
-	"cd home/node && ./raft-init.sh && ./raft-start.sh &"
+	"cd home/node && ./raft-init.sh && ./raft-start.sh &" &
   echo "No.$v node key ok"
 done
 
