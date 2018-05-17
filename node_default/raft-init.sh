@@ -5,7 +5,6 @@ set -e
 echo "[*] Cleaning up temporary data directories"
 rm -rf qdata
 mkdir -p qdata/logs
-./stop.sh
 
 echo "[*] Configuring node"
 mkdir -p qdata/dd/{keystore,geth}
