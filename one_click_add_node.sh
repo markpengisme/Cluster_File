@@ -4,8 +4,8 @@ while true
 do
 	echo "================="
 	echo "Please enter 1~3"
-	echo "1.Rapid deployment N's node"
-	echo "2.Rapid add N's node"
+	echo "1.Quick deployment N's node"
+	echo "2.Quick add N's node"
 	echo "3.Delete node"
 	read FEATURE
 	if ! [[ $FEATURE =~ $re ]] ; then
@@ -31,7 +31,8 @@ if [ $FEATURE -eq 1 ] ; then
 		fi
 	done
 elif [ $FEATURE -eq 2 ] ; then
-	EXIST_NUM=$(($(kubectl get deploy | wc -l)-1))
+	#get last node number 
+	EXIST_NUM=$((kubectl get deploy | awk 'END {print substr($1,5,5)}'))
 	while true
 	do
 		echo "How many node do you wanna add:"
@@ -45,6 +46,7 @@ elif [ $FEATURE -eq 2 ] ; then
 			break
 		fi
 	done
+	
 elif [ $FEATURE -eq 3 ] ; then
 	while true
 	do
@@ -53,7 +55,7 @@ elif [ $FEATURE -eq 3 ] ; then
 		read NUM
 		for var in ${NUM[@]}
 		do
-		    kubectl delete nodesvc$var 
+			kubectl delete svc nodesvc$var 
 			kubectl delete deploy node$var
 			echo "delete node$var"
 		done
