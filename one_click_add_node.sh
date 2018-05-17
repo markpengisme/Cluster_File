@@ -109,6 +109,18 @@ do
 	done
 done
 
+## copy passwords\raft-init\raft-start\stop
+for v in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
+do
+	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
+	kubectl exec $POD_NAME -- bash -c "mkdir -p /home/node"
+	kubectl cp node_empty/genesis.json $POD_NAME:/home/node
+	kubectl cp node_empty/passwords.txt $POD_NAME:/home/node
+	kubectl cp node_empty/raft-init.sh $POD_NAME:/home/node
+	kubectl cp node_empty/raft-start.sh $POD_NAME:/home/node
+	kubectl cp node_empty/stop.sh $POD_NAME:/home/node
+    echo "copy node folder ok"
+done
 
 ##generate permissioned-nodes.json
 for v in `seq 1 $TOTAL_NUM`
@@ -128,17 +140,15 @@ done
 sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' 123.txt > node_empty/permissioned-nodes.json
 rm 123.txt
 
-
 ## copy node_empty folder
 for v in `seq $TOTAL_NUM`
 do
-	kubectl cp -r node_empty \
-	$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}'):/home
-    echo "copy node folder ok"
+	POD_NAME=$(kubectl get pods --selector=node=node$v | awk 'NR>1 {print $1}')
 done
+echo "copy permissioned-nodes ok"
 
 
-##allkey/constellation-start.sh
+## allkey/constellation-start.sh
 for v in `seq $(($EXIST_NUM+1)) $TOTAL_NUM`
 do
 	GENERATE_DIR="mkdir -p /home/node && cd /home/node"
