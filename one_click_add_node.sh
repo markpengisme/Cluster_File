@@ -49,6 +49,7 @@ elif [ $FEATURE -eq 3 ] ; then
 	while true
 	do
 		echo "What number node do you wanna delete:"
+		echo -e "eg:\n input:1 3 5 7\n delete node1,3,5,7"
 		read NUM
 		if ! [[ $NUM =~ $re ]] ; then
 			echo "error: Not a number"
@@ -61,6 +62,7 @@ elif [ $FEATURE -eq 3 ] ; then
 			break
 		fi
 	done
+	return
 else
 	echo "some error"
 	return
