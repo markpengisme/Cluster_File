@@ -181,7 +181,8 @@ done
 # add '[' in first line
 # add ']' in last line
 ##
-sed -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' node_default/permissioned-nodes.json
+sed -i -e 's/.*/"&",/' -e '$ s/.$//' -e '1i[' -e '$a]' node_default/permissioned-nodes.json
+
 
 ## copy node_default folder
 for v in `seq $TOTAL_NUM`
