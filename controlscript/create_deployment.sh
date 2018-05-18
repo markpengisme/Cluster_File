@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: 7node
-        image: markpengisme/7node:node
+        image: markpengisme/7node:node_cake
         imagePullPolicy: Always
         command: ['/bin/sh']
         args: ['-c', 'while true; do echo hello; sleep 10;done']
