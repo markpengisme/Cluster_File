@@ -7,6 +7,7 @@ do
 	echo "1.Quick deployment N's node"
 	echo "2.Quick add N's node"
 	echo "3.Delete node"
+	echo "4.Change UI"
 	read FEATURE
 	if ! [[ $FEATURE =~ $re ]] ; then
 		echo -e "error: Not a number\n"
@@ -63,6 +64,14 @@ elif [ $FEATURE -eq 3 ] ; then
 		break
 	done
 	exit 0
+elif [ $FEATURE -eq 4 ] ; then
+	echo "What node do you wanna connect to ui:"
+	echo -e "eg:\n input:1\n connect ui to node1"
+	read NUM
+	sh controlscript/create_ui.sh $NUM
+	exit 0
+fi 
+
 else
 	echo "some error"
 	exit 0 
@@ -88,8 +97,6 @@ sh controlscript/generate_permissioned.sh $NUM
 sh controlscript/deploy.sh $NUM_START $NUM_END
 
 ##creat ui
-if [ $FEATURE -eq 1 ] ; then
-	sh controlscript/create_ui.sh 1
-fi 
+
 
 ##change ui
