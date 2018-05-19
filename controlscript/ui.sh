@@ -4,6 +4,6 @@ for v in `seq $NUM_START $NUM_END`
 do
 	echo "open node$v UI"
 	kubectl exec $(kubectl get pods --selector=node=node$v|  awk 'NR>1 {print $1}') -- bash -c \
-	"cd home/ && export USER=root  && kill -9 $(lsof -t -i:8080) && rm -rf data && gosu root java -jar cakeshop.war example && gosu root java -jar cakeshop.war" &
+	"cd home/ && gosu root java -jar cakeshop.war" &
 done
 
