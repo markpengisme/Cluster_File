@@ -12,8 +12,8 @@ spec:
     port: 8080
     targetPort: 8080
   type: LoadBalancer" > ui_svc.yaml
-    kubectl apply -f ui_svc.yaml
-    rm ui_svc.yaml
+kubectl apply -f ui_svc.yaml
+rm ui_svc.yaml
 
 echo "apiVersion: apps/v1
 kind: Deployment
@@ -37,6 +37,5 @@ spec:
         ports:
         - name: ui
           containerPort: 8080" > ui_deploy.yaml
-	kubectl apply -f ui_deploy.yaml
-	rm  ui_deploy.yaml
-done
+kubectl apply -f ui_deploy.yaml
+rm  ui_deploy.yaml
