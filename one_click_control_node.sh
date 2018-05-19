@@ -3,7 +3,7 @@ re='^[0-9]+$'
 while true
 do
 	echo "================="
-	echo "Please enter 1~3"
+	echo "Please enter 1~4"
 	echo "1.Quick deployment N's node"
 	echo "2.Quick add N's node"
 	echo "3.Delete node"
@@ -11,8 +11,8 @@ do
 	read FEATURE
 	if ! [[ $FEATURE =~ $re ]] ; then
 		echo -e "error: Not a number\n"
-	elif [ $FEATURE -lt 1 ] || [ $FEATURE -gt 3 ] ; then
-		echo -e "error: Please input 1~3\n"
+	elif [ $FEATURE -lt 1 ] || [ $FEATURE -gt 4 ] ; then
+		echo -e "error: Please input 1~4\n"
 	else 
 		break
 	fi
