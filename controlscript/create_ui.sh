@@ -18,9 +18,9 @@ rm ui_svc.yaml
 echo "apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui-deploy
+  name: ui
   labels:
-    ui: ui-deploy
+    ui: ui
 spec:
   replicas: 1
   selector:
