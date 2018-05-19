@@ -43,6 +43,8 @@ spec:
 kubectl apply -f ui_deploy.yaml
 rm  ui_deploy.yaml
 
+IP_1=$(kubectl get svc  | awk 'NR==3 {print $4}')
+sed -i "26s/.*/geth.url=http\\\:$IP_1\\\:22000/" node_default/application.properties
 UI_NAME=$(kubectl get pods --selector=ui=ui | awk 'NR>1 {print $1}')
 kubectl cp node_default/application.properties $UI_NAME:/home/data/local/application.properties
 echo "Copy application.properties to ui ok"

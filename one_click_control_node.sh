@@ -87,4 +87,5 @@ sh controlscript/generate_permissioned.sh $NUM
 ##blockchain deploy
 sh controlscript/deploy.sh $NUM_START $NUM_END
 
+##creat ui
 sh controlscript/create_ui.sh
