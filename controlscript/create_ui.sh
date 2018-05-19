@@ -23,6 +23,9 @@ metadata:
     ui: ui-deploy
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      ui: ui
   template:
     metadata:
       labels:
