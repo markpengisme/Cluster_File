@@ -1,12 +1,12 @@
 echo "kind: Service
 apiVersion: v1
 metadata:
-  name: UI_svc
+  name: ui_svc
   labels:
     ui: ui_svc 
 spec:
   selector:
-    ui: UI
+    ui: ui
   ports:
   - name: ui
     port: 8080
@@ -18,7 +18,7 @@ rm ui_svc.yaml
 echo "apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: UI_deploy
+  name: ui_deploy
   labels:
     ui: ui_deploy
 spec:
@@ -26,7 +26,7 @@ spec:
   template:
     metadata:
       labels:
-        ui: UI
+        ui: ui
     spec:
       containers:
       - name: ui
