@@ -70,8 +70,6 @@ elif [ $FEATURE -eq 4 ] ; then
 	read NUM
 	sh controlscript/create_ui.sh $NUM
 	exit 0
-fi 
-
 else
 	echo "some error"
 	exit 0 
