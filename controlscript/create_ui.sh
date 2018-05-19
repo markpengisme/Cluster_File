@@ -1,9 +1,9 @@
 echo "kind: Service
 apiVersion: v1
 metadata:
-  name: ui_svc
+  name: ui-svc
   labels:
-    ui: ui_svc 
+    ui: ui-svc 
 spec:
   selector:
     ui: ui
@@ -18,9 +18,9 @@ rm ui_svc.yaml
 echo "apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui_deploy
+  name: ui-deploy
   labels:
-    ui: ui_deploy
+    ui: ui-deploy
 spec:
   replicas: 1
   template:
