@@ -24,9 +24,6 @@ spec:
   - name: geth
     port: 9000
     targetPort: 9000
-  - name: ui
-    port: 8080
-    targetPort: 8080
   type: LoadBalancer" > service${svc}.yaml
   	kubectl apply -f service${svc}.yaml
   	rm service${svc}.yaml

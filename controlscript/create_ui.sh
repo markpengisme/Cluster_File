@@ -42,3 +42,9 @@ spec:
           containerPort: 8080" > ui_deploy.yaml
 kubectl apply -f ui_deploy.yaml
 rm  ui_deploy.yaml
+
+UI_NAME=$(kubectl get pods --selector=ui=ui | awk 'NR>1 {print $1}')
+kubectl cp node_default/application.properties $UI_NAME:/home/data/local/application.properties
+echo "Copy application.properties to ui ok"
+kubectl exec UI_NAME -- bash -c \
+  "cd home/ && gosu root java -jar cakeshop.war" &
