@@ -3,16 +3,17 @@ re='^[0-9]+$'
 while true
 do
 	echo "================="
-	echo "Please enter 1~4"
+	echo "Please enter 1~5"
 	echo "1.Quick deployment N's node"
 	echo "2.Quick add N's node"
 	echo "3.Delete node"
 	echo "4.Change UI"
+	echo "5.Blocak generator"
 	read FEATURE
 	if ! [[ $FEATURE =~ $re ]] ; then
 		echo -e "error: Not a number\n"
-	elif [ $FEATURE -lt 1 ] || [ $FEATURE -gt 4 ] ; then
-		echo -e "error: Please input 1~4\n"
+	elif [ $FEATURE -lt 1 ] || [ $FEATURE -gt 5 ] ; then
+		echo -e "error: Please input 1~5\n"
 	else 
 		break
 	fi
@@ -69,6 +70,10 @@ elif [ $FEATURE -eq 4 ] ; then
 	echo -e "eg:\n input:1\n connect ui to node1"
 	read NUM
 	sh controlscript/create_ui.sh $NUM
+	exit 0
+elif [ $FEATURE -eq 5 ] ; then
+	echo "Start create block:"
+	sh controlscript/create_block.sh 
 	exit 0
 else
 	echo "some error"
