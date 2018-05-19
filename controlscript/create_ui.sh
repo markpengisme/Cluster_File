@@ -46,5 +46,6 @@ rm  ui_deploy.yaml
 UI_NAME=$(kubectl get pods --selector=ui=ui | awk 'NR>1 {print $1}')
 kubectl cp node_default/application.properties $UI_NAME:/home/data/local/application.properties
 echo "Copy application.properties to ui ok"
-kubectl exec UI_NAME -- bash -c \
-  "cd home/ && gosu root java -jar cakeshop.war" &
+kubectl exec $UI_NAME -- bash -c 'rm -rf home/data/geth && fuser -k 8080/tcp'
+kubectl exec $UI_NAME -- bash -c \
+  'cd home/ && USER=root && gosu root java -jar cakeshop.war' &
