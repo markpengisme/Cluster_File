@@ -8,7 +8,7 @@ do
 	echo "2.Quick add N's node"
 	echo "3.Delete node"
 	echo "4.Change UI"
-	echo "5.Blocak generator"
+	echo "5.Block generator"
 	read FEATURE
 	if ! [[ $FEATURE =~ $re ]] ; then
 		echo -e "error: Not a number\n"
