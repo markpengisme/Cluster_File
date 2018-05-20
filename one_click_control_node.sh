@@ -104,3 +104,4 @@ if [ $FEATURE -eq 1 ] ; then
 do
 	sh controlscript/create_ui.sh 1
 done
+fi
