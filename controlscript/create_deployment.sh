@@ -36,19 +36,7 @@ spec:
         - name: ipc
           containerPort: 21000
         - name: geth
-          containerPort: 9000
-        volumeMounts: 
-        - mountPath: /home/backup 
-          name: 7node-map
-      initContainers:
-      - name: init-7node
-        image: markpengisme/7node:node
-        command: ['bin/sh']
-        args: ['-c', 'echo /"123/" ']
-      volumes:
-      - name: 7node-map
-        configMap:
-          name: 7node-map" > deploy${deploy}.yaml
+          containerPort: 9000" > deploy${deploy}.yaml
 	kubectl apply -f deploy${deploy}.yaml
 	rm deploy${deploy}.yaml
 done
