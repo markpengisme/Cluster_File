@@ -44,7 +44,7 @@ spec:
 kubectl apply -f ui_deploy.yaml
 rm  ui_deploy.yaml
 
-IP=$(kubectl get svc  | awk '{if(substr($1,8,4)=='$NUM'){print $4}}'
+IP=$(kubectl get svc  | awk '{if(substr($1,8,4)=='$NUM'){print $4}}')
 sed -i "26s/.*/geth.url=http\\\:$IP\\\:22000/" node_default/application.properties
 UI_NAME=$(kubectl get pods --selector=ui=ui | awk 'NR>1 {print $1}')
 kubectl cp node_default/application.properties $UI_NAME:/home/data/local/application.properties
