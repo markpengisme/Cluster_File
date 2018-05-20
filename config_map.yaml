@@ -26,7 +26,7 @@ data:
     geth.node.port=30303
     geth.params.extra=
     geth.rpcapi.list=admin,db,eth,debug,miner,net,shh,txpool,personal,web3
-    geth.url=http\:104.198.78.243\:22000
+    geth.url=http\:localhost\:22000
     geth.verbosity=
     management.context-path=/manage
     server.compression.enabled=true
@@ -54,11 +54,6 @@ data:
       "timestamp": "0x00"
     }
   passwords.txt: ""
-  permissioned-nodes.json: |
-    [
-    "enode://e34703bb5f6a3b82a17edc3ec1c77f8dab8eb64b9f2e4e0431cef630880a9cdf97d31977e0d29991fbc8e9392d5f5626ec9502866a9a95591d77f0025e70391f@104.198.78.243:21000?discport=0&raftport=50400",
-    "enode://4a54e60e5edba14afe3f0a2a4585385c23b978f223f764d2c4d4fc2e827a7d4d2f7c03f3dafb8160dfe6b44a559b588ed84b4a6f626351ee7d03326c5b99bdd4@104.154.211.31:21000?discport=0&raftport=50400"
-    ]
   raft-init.sh: |-
     #!/bin/bash
     set -u
@@ -88,19 +83,6 @@ data:
     ARGS="--raft --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum --emitcheckpoints"
     PRIVATE_CONFIG=qdata/c/tm.ipc nohup geth --datadir qdata/dd $ARGS --permissioned --raftport 50400 --rpcport 22000 --port 21000 --unlock 0 --password passwords.txt 2>>qdata/logs/log.log &
     echo "Node configured. See 'qdata/logs' for logs, and run e.g. "geth attach qdata/dd/geth.ipc" to attach to the Geth node."
-  runscript.sh: |
-    #!/bin/bash
-    PRIVATE_CONFIG=qdata/c/tm.ipc geth --exec "loadScript(\"$1\")" attach ipc:qdata/dd/geth.ipc
-  script.js: "a = eth.accounts[0]\nweb3.eth.defaultAccount = a;\n\n// abi and bytecode
-    generated from simplestorage.sol:\n// > solcjs --bin --abi simplestorage.sol\nvar
-    abi = [{\"constant\":true,\"inputs\":[],\"name\":\"storedData\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"name\":\"retVal\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"initVal\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"constructor\"}];\n\nvar
-    bytecode = \"0x6060604052341561000f57600080fd5b604051602080610149833981016040528080519060200190919050505b806000819055505b505b610104806100456000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632a1afcd914605157806360fe47b11460775780636d4ce63c146097575b600080fd5b3415605b57600080fd5b606160bd565b6040518082815260200191505060405180910390f35b3415608157600080fd5b6095600480803590602001909190505060c3565b005b341560a157600080fd5b60a760ce565b6040518082815260200191505060405180910390f35b60005481565b806000819055505b50565b6000805490505b905600a165627a7a72305820d5851baab720bba574474de3d09dbeaabc674a15f4dd93b974908476542c23f00029\";\n\nvar
-    simpleContract = web3.eth.contract(abi);\nvar simple = simpleContract.new(42,
-    {from:web3.eth.accounts[0], data: bytecode, gas: 0x47b760}, function(e, contract)
-    {\n\tif (e) {\n\t\tconsole.log(\"err creating contract\", e);\n\t} else {\n\t\tif
-    (!contract.address) {\n\t\t\tconsole.log(\"Contract transaction send: TransactionHash:
-    \" + contract.transactionHash + \" waiting to be mined...\");\n\t\t} else {\n\t\t\tconsole.log(\"Contract
-    mined! Address: \" + contract.address);\n\t\t\tconsole.log(contract);\n\t\t}\n\t}\n});\n"
   stop.sh: |-
     #!/bin/bash
     killall geth bootnode constellation-node
