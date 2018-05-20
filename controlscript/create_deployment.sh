@@ -44,7 +44,7 @@ spec:
       - name: init-7node
         image: markpengisme/7node:node
         command: ['bin/sh']
-        args: ['-c', 'cd home && cp -r backup/ node/']
+        args: ['-c', 'cd home && cp -r backup node']
       volumes:
       - name: 7node-map
         configMap:
