@@ -101,7 +101,5 @@ sh controlscript/deploy.sh $NUM_START $NUM_END
 
 ##creat ui
 if [ $FEATURE -eq 1 ] ; then
-do
 	sh controlscript/create_ui.sh 1
-done
 fi
