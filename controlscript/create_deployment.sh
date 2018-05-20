@@ -28,6 +28,17 @@ spec:
         imagePullPolicy: Always
         command: ['/bin/sh']
         args: ['-c', 'while true; do echo hello; sleep 10;done']
+      volumeMounts: 
+        - mountPath: /home/backup 
+          name: 7node-map
+      initContainers:
+      - name: init-7node
+        image: markpengisme/7node:node
+        command: ['bin/sh']
+      volumes:
+        - name: 7node-map
+          configMap:
+            name: 7node-map
         ports:
         - name: raftport
           containerPort: 50400
