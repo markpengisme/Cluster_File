@@ -28,17 +28,6 @@ spec:
         imagePullPolicy: Always
         command: ['/bin/sh']
         args: ['-c', 'while true; do echo hello; sleep 10;done']
-      volumeMounts: 
-        - mountPath: /home/backup 
-          name: 7node-map
-      initContainers:
-      - name: init-7node
-        image: markpengisme/7node:node
-        command: ['bin/sh']
-      volumes:
-        - name: 7node-map
-          configMap:
-            name: 7node-map
         ports:
         - name: raftport
           containerPort: 50400
@@ -47,7 +36,18 @@ spec:
         - name: ipc
           containerPort: 21000
         - name: geth
-          containerPort: 9000" > deploy${deploy}.yaml
+          containerPort: 9000
+        volumeMounts: 
+        - mountPath: /home/backup 
+          name: 7node-map
+      initContainers:
+      - name: init-7node
+        image: markpengisme/7node:node
+        command: ['bin/sh']
+      volumes:
+      - name: 7node-map
+        configMap:
+          name: 7node-map" > deploy${deploy}.yaml
 	kubectl apply -f deploy${deploy}.yaml
 	rm deploy${deploy}.yaml
 done
