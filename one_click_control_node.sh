@@ -100,4 +100,7 @@ sh controlscript/generate_permissioned.sh $NUM
 sh controlscript/deploy.sh $NUM_START $NUM_END
 
 ##creat ui
-sh controlscript/create_ui.sh 1
+if [ $FEATURE -eq 1 ] ; then
+do
+	sh controlscript/create_ui.sh 1
+done
