@@ -1,4 +1,4 @@
-NUM=$(($1+2))
+NUM=$1
 echo "kind: Service
 apiVersion: v1
 metadata:
