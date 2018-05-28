@@ -10,8 +10,6 @@ metadata:
     app: 7node
     node: node${deploy}
 spec:
-  nodeSelector:
-    node: node${deploy}
   replicas: 1
   selector:
     matchLabels:
